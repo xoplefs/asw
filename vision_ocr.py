@@ -7,42 +7,43 @@ Created on Tue Oct 27 12:24:39 2020
 Testing the Google Cloud Vision API for OCR
 """
 
+path = "comics/0001_myparents.jpg"
 
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/xople/Documents/ASW/nomadic-zoo-293819-8ccfdaa58681.json"
 
 
-def detect_text(path):
-    """Detects text in the file."""
-    from google.cloud import vision
-    from google.cloud.vision import types
-    import io
-    client = vision.ImageAnnotatorClient()
+#def detect_text(path):
+"""Detects text in the file."""
+from google.cloud import vision
+from google.cloud.vision import types
+import io
+client = vision.ImageAnnotatorClient()
 
-    with io.open(path, 'rb') as image_file:
-        content = image_file.read()
+with io.open(path, 'rb') as image_file:
+    content = image_file.read()
 
-    image = types.Image(content=content)
+image = types.Image(content=content)
 
-    response = client.text_detection(image=image)
-    texts = response.text_annotations
-    
-    print(type(texts))
-    
-    print('Texts:')
+response = client.text_detection(image=image)
+texts = response.text_annotations
 
-    for text in texts:
-        print('\n"{}"'.format(text.description))
+print(type(texts))
 
-    #     vertices = (['({},{})'.format(vertex.x, vertex.y)
-    #                 for vertex in text.bounding_poly.vertices])
+print('Texts:')
 
-    #     print('bounds: {}'.format(','.join(vertices)))
+for text in texts:
+    print('\n"{}"'.format(text.description))
 
-    if response.error.message:
-        raise Exception(
-            '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
-                response.error.message))
+#     vertices = (['({},{})'.format(vertex.x, vertex.y)
+#                 for vertex in text.bounding_poly.vertices])
+
+#     print('bounds: {}'.format(','.join(vertices)))
+
+if response.error.message:
+    raise Exception(
+        '{}\nFor more info on error messages, check: '
+        'https://cloud.google.com/apis/design/errors'.format(
+            response.error.message))
         
-detect_text("comics/0001_myparents.jpg")
+#detect_text("comics/0001_myparents.jpg")
