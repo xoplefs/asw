@@ -22,6 +22,12 @@ a basis to annotate the breaks.
 Use NLPT and perhaps statistical packages to look for patterns, if any, within
 those break.
 
+I also want to be able to extract the alt-text (which I believe is the same as
+'title', I haven't verified this) and match it with each comic's text and
+filename. In the interest of making this more aligned with the CS50, I suppose
+I could throw it all in an SQL database with a search feature. Maybe categorize
+them there by whatever type of syntactic breaks.
+
 """
 
 import bs4 #beautifulsoup4
@@ -40,8 +46,8 @@ def save_comic(n):
     url = comic[0].get('src')
     title = comic[0].get('title')
     filename = url.split('/')[-1]
-    print(title)
-    print(filename)
+    #print(title)
+    #print(filename)
     
     imgurl = requests.get(url)
     res.raise_for_status()
