@@ -9,16 +9,13 @@ of the sentences. Because I had often found the breaks to be counter-intuitive,
 I might expect a high occurence of the breaks being within major syntactic
 constituents/phrases, rather than at their boundaries.
 
-Next steps would be:
+asw.py downloads all A Softer World comics from the website, using Beautiful Soup. I still want to modify this to extract the alt-text (which is 'title') and match it with each comic's text and filename. This could probably go into an SQL database, where the OCR output might be added, as well, and potentially categorize them there by whatever type of syntactic breaks.
 
-Use OCR to extract the text from all of the comics, using the comic panels as 
-a basis to annotate the breaks.
+vision_ocr.py uses a Google Vision API to read text from the comics.
 
-Use NLPT and perhaps statistical packages to look for patterns, if any, within
-those break.
+comicsplit2.py separates each comic's frames into separate files. The output is not in the correct order, however, so more work is needed.
 
-I also want to be able to extract the alt-text (which is
-'title') and match it with each comic's text and
-filename. In the interest of making this more aligned with the CS50, I suppose
-I could throw it all in an SQL database with a search feature. Maybe categorize
-them there by whatever type of syntactic breaks.
+Once the ordering issue with the comic panels is fixed, the panels can be read by the OCR in order.
+
+Next steps will be to use Natural Language Toolkit and perhaps statistical packages to look for patterns, if any, in where the breaks between panels occur.
+
