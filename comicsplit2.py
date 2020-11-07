@@ -32,14 +32,14 @@ cv2.imwrite('result-2.png',grthresh)
 contours, hierarchy = cv2.findContours(grthresh,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
 
 def get_contour_precedence(contour, cols):
-    tolerance_factor = 50
+    tolerance_factor = 1
     origin = cv2.boundingRect(contour)
     return ((origin[0] // tolerance_factor) * cols + origin[0])
 
 contours.sort(key=lambda y:get_contour_precedence(y, im.shape[0]))
 
 # Look through contours, checking what we found
-blob = 0
+frame = 0
 for i in range(len(contours)):
     area  = cv2.contourArea(contours[i])
     # Only consider ones taller than around 100 pixels and wider than about 300 pixels
@@ -53,5 +53,5 @@ for i in range(len(contours)):
         x1 = int(round(max(Xs)))
         y0 = int(round(min(Ys)))
         y1 = int(round(max(Ys)))
-        cv2.imwrite(f'blob-{blob}.png', im[y0:y1,x0:x1])
-        blob += 1
+        cv2.imwrite(f'frame-{frame}.png', im[y0:y1,x0:x1])
+        frame += 1
